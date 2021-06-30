@@ -188,7 +188,21 @@ var app = {
 
       // if the payload's not a Smart Poster, display it:
       } else {
-         app.display("Payload: " + nfc.bytesToString(record.payload));
+         //app.display("Payload: " + nfc.bytesToString(record.payload));
+         //app.parsePayload(record);
+         var stringArray = nfc.bytesToString(record.payload).split(/\s+/);
+         var payloadObj =  {};
+         stringArray.forEach((elem) => {
+            var elemArr = elem.split(/:/);
+            payloadObj[elemArr[0]] = elemArr[1]
+//            app.display(elem);
+         });
+         //app.display(JSON.stringify(payloadObj));
+         app.display("AppEui: "+payloadObj.AppEui);
+         app.display("Appkey: "+payloadObj.AppKey);
+         app.display("Payload: ");
+         app.display(stringArray);
+
       }
    }
 };     // end of app
